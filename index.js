@@ -25,8 +25,8 @@ const routes = require("./routes");
 const app = express();
 
 //! 5.-Configurar Middeleares
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 //! 6.- Conexión a Mongo
 mongoose.connect(process.env.URI_MONGO_SERVER);
