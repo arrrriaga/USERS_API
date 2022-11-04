@@ -18,14 +18,15 @@ require("./models");
 //! 3.- Importar Express, Mongoose & Router
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const routes = require("./routes");
 
 //! 4.- Hacer instancia de la aplicación
 const app = express();
 
 //! 5.-Configurar Middeleares
-
 app.use(express.json());
+app.use(cors());
 
 //! 6.- Conexión a Mongo
 mongoose.connect(process.env.URI_MONGO_SERVER);

@@ -7,28 +7,21 @@
     <title>Consumo de API</title>
   </head>
   <body>
-    <main>
-      <article>
-        <form>
-          <input type="text" id="nombre" />
-          <input type="number" id="edad" />
-          <button type="submit">Guardar</button>
-        </form>
+    <input type="text" id="nombre" />
+    <input type="number" id="edad" />
+    <button type="submit" onclick="guardar()">Guardar</button>
 
-        <article>
-          <script>
-              const inputNombre = document.getElementById("nombre");
-              const inputEdad = document.getElementById("edad");
-              const guardar = () => {
-                  axios.post("https://users-3kxjejllr-arrrriaga.vercel.app/v1/user", {
-            nombre: inputNombre.value,
-            edad: inputEdad.value,
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
-              })
-          </script>
-        </article>
-      </article>
-    </main>
+    <script>
+      const inputNombre = document.getElementById("nombre");
+      const inputEdad = document.getElementById("edad");
+      const guardar = () => {
+        axios.post("https://users-api-ruby.vercel.app//v1/user", {
+          nombre: inputNombre.value,
+          edad: inputEdad.value,
+        });
+      };
+    </script>
   </body>
 </html>
