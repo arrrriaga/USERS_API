@@ -27,7 +27,7 @@ const app = express();
 app.use(express.json());
 
 //! 6.- Conexión a Mongo
-mongoose.connect("mongodb://localhost:27017/C7_APIV2");
+mongoose.connect(process.env.URI_MONGO);
 
 //! 7.- Definir rutas
 app.use("/v1", routes);

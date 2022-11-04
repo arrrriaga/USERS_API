@@ -6,6 +6,14 @@ const {
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
 } = require("./User.controller");
+const {
+  nuevaPelicula,
+  verPeliculas,
+  filtrarPeliculas,
+  eliminarPelicula,
+  eliminarPeliculasPorFiltro,
+  actualizarPelicula,
+} = require("./Pelicula.controller");
 
 module.exports = {
   registro,
@@ -14,4 +22,10 @@ module.exports = {
   eliminarUsuario,
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
+  nuevaPelicula,
+  verPeliculas,
+  filtrarPeliculas,
+  eliminarPelicula,
+  eliminarPeliculasPorFiltro,
+  actualizarPelicula,
 };

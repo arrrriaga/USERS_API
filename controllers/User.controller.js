@@ -87,19 +87,32 @@ const eliminarUsuariosPorFiltro = async (req, res) => {
 const actualizarUsuario = async (req, res) => {
   try {
     const { id } = req.params;
-
-    const actualizado = await User.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true }
-    );
+    const actualizado = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     return res
       .status(200)
-      .json({ mensaje: "Usuario actualizado", detalles: actualizado });
+      .json({ msj: "Mensaje actualizado", detalles: actualizado });
   } catch (e) {
-    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+    return res.status(200).json({ msj: "ERROR", detalles: e.message });
   }
 };
+// const actualizarUsuario = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     const actualizado = await User.findByIdAndUpdate(
+//       id,
+//       { $set: req.body },
+//       { new: true }
+//     );
+//     return res
+//       .status(200)
+//       .json({ mensaje: "Usuario actualizado", detalles: actualizado });
+//   } catch (e) {
+//     return res.status(400).json({ mensaje: "Error", detalles: e.message });
+//   }
+// };
 
 module.exports = {
   registro,
