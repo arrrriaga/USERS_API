@@ -24,6 +24,7 @@ const routes = require("./routes");
 const app = express();
 
 //! 5.-Configurar Middeleares
+
 app.use(express.json());
 
 //! 6.- Conexión a Mongo
@@ -31,6 +32,9 @@ mongoose.connect(process.env.URI_MONGO);
 
 //! 7.- Definir rutas
 app.use("/v1", routes);
+app.use((req, res) => {
+  res.send('<a href="/v1">Go to API v1</a>"');
+});
 
 //! 8.- Levantar Servidor
 app.listen(process.env.PORT, () => {
