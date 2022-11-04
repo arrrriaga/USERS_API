@@ -6,5 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Consumo de API</title>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <article>
+        <form>
+          <input type="text" id="nombre" />
+          <input type="number" id="edad" />
+          <button type="submit">Guardar</button>
+        </form>
+
+        <article>
+          <script>
+              const inputNombre = document.getElementById("nombre");
+              const inputEdad = document.getElementById("edad");
+              const guardar = () => {
+                  axios.post("https://users-3kxjejllr-arrrriaga.vercel.app/v1/user", {
+            nombre: inputNombre.value,
+            edad: inputEdad.value,
+
+
+              })
+          </script>
+        </article>
+      </article>
+    </main>
+  </body>
 </html>
