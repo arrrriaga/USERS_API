@@ -9,6 +9,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const uniqueValidator = require("mongoose-unique-validator");
 
 //! 2.- 2.- Crear el esquema
 const UserSchema = new mongoose.Schema({
@@ -19,6 +20,8 @@ const UserSchema = new mongoose.Schema({
   correo: {
     type: String,
     required: true,
+    unique: true,
+    match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Email inválido"],
   },
   planeta: {
     type: String,
@@ -41,6 +44,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
 });
+
+UserSchema.plugin(uniqueValidator);
 
 //! Funciones del modelo
 //Generar pasword
