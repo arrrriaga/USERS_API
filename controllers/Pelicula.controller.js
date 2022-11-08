@@ -1,3 +1,4 @@
+const { path } = require("express/lib/application");
 const mongoose = require("mongoose");
 const Pelicula = mongoose.model("Pelicula");
 
@@ -7,7 +8,16 @@ const nuevaPelicula = async (req, res) => {
     const pelicula = new Pelicula(req.body);
     const resp = await pelicula.save();
 
-    return res.status(201).json({ msg: "Pelicula creada", data: resp });
+    return res.status(201).json({
+      msg: "Pelicula creada",
+      data: await resp.populate({
+        path: "director",
+        select: {
+          nombre: true,
+          tipo: true,
+        },
+      }),
+    });
   } catch (e) {
     return res.status(400).json({ msg: "ERROR POST", detalles: e.message });
   }
@@ -15,7 +25,20 @@ const nuevaPelicula = async (req, res) => {
 
 const verPeliculas = async (req, res) => {
   try {
-    const Peliculas = await Pelicula.find();
+    // const Peliculas = await Pelicula.find().populate("director"); //Forma base, trae el User completo
+    const Peliculas = await Pelicula.find().populate({
+      path: "director",
+      select: {
+        nombre: true,
+        tipo: true,
+      },
+      // populate: {
+      //   path: "tipo",
+      //   select: {
+      //     nombre: true,
+      //   },
+      // },
+    });
     if (!Peliculas.length) {
       return res
         .status(404)
@@ -34,7 +57,12 @@ const verPeliculas = async (req, res) => {
 
 const filtrarPeliculas = async (req, res) => {
   try {
-    const Peliculas = await Pelicula.find(req.body);
+    const Peliculas = await Pelicula.find(req.body).populate({
+      path: "director",
+      select: {
+        nombre: true,
+      },
+    });
     if (!Peliculas.length) {
       return res
         .status(404)
@@ -91,6 +119,11 @@ const actualizarPelicula = async (req, res) => {
     const { id } = req.params;
     const actualizado = await Pelicula.findByIdAndUpdate(id, req.body, {
       new: true,
+    }).populate({
+      path: "director",
+      select: {
+        nombre: true,
+      },
     });
     return res
       .status(200)

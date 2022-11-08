@@ -18,7 +18,8 @@ const PeliculaSchema = new mongoose.Schema({
     required: true,
   },
   director: {
-    type: String,
+    type: mongoose.ObjectId,
+    ref: "User",
     required: true,
   },
 });
