@@ -1,5 +1,6 @@
 const {
   registro,
+  login,
   verUsuarios,
   filtrarUsuarios,
   eliminarUsuario,
@@ -17,6 +18,7 @@ const {
 
 module.exports = {
   registro,
+  login,
   verUsuarios,
   filtrarUsuarios,
   eliminarUsuario,

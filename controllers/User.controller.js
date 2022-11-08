@@ -4,17 +4,53 @@ const User = mongoose.model("User");
 const registro = async (req, res) => {
   try {
     //POST: Creamos nuestro usuario con lo que viene del body
-    const user = new User(req.body);
-    const resp = await user.save();
+    const { password } = req.body;
+    delete req.body.password;
 
-    return res.status(201).json({ msg: "Usuario creado", data: resp });
+    const user = new User(req.body);
+    user.hashPassword(password);
+
+    await user.save();
+
+    return res
+      .status(201)
+      .json({ msg: "Usuario creado", detalles: user.generateJWT() });
   } catch (e) {
-    return res.status(400).json({ msg: "ERROR", detalles: e.message });
+    return res.status(400).json({ msg: "ERROR REGISTRO", detalles: e.message });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { correo, password } = req.body;
+    const user = await User.findOne({ correo });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ msj: "ERROR LOGIN", detalles: "Usuario no encontrado" });
+    }
+    if (user.verifyPassword(password)) {
+      return res
+        .status(200)
+        .json({ msj: "Login correcto", detalles: user.generateJWT() });
+    }
+    return res
+      .status(400)
+      .json({ msj: "RROR LOGIN", detalles: "Contraseña incorrecta" });
+  } catch (e) {
+    return res.status(400).json({ msj: "ERROR LOGIN", detalles: e.message });
   }
 };
 
 const verUsuarios = async (req, res) => {
   try {
+    console.log(req.user);
+    if (req.user.tipo !== "admin") {
+      res.status(400).json({
+        msj: "ERROR VER USUARIOS",
+        detalles: "NO tienes permitida esta opción",
+      });
+    }
     const usuarios = await User.find();
     if (!usuarios.length) {
       return res
@@ -26,7 +62,7 @@ const verUsuarios = async (req, res) => {
       .json({ msg: "Usuarios encontrados", data: usuarios });
   } catch (e) {
     return res.status(400).json({
-      msg: "ERROR",
+      msg: "ERROR VERUSUARIOS",
       detalles: e.message,
     });
   }
@@ -97,25 +133,10 @@ const actualizarUsuario = async (req, res) => {
     return res.status(200).json({ msj: "ERROR", detalles: e.message });
   }
 };
-// const actualizarUsuario = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     const actualizado = await User.findByIdAndUpdate(
-//       id,
-//       { $set: req.body },
-//       { new: true }
-//     );
-//     return res
-//       .status(200)
-//       .json({ mensaje: "Usuario actualizado", detalles: actualizado });
-//   } catch (e) {
-//     return res.status(400).json({ mensaje: "Error", detalles: e.message });
-//   }
-// };
 
 module.exports = {
   registro,
+  login,
   verUsuarios,
   filtrarUsuarios,
   eliminarUsuario,

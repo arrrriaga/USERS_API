@@ -10,7 +10,7 @@
 
 */
 //! 1.- Importar variables de entorno
-require("dotenv").config();
+require("dotenv").config(); //Al llamarlo acá, se llama para todo el proyecto ejecutable
 
 //! 2.- Importar los modelos
 require("./models");
