@@ -1,6 +1,6 @@
 //Este file sirve para saber si nuetro usuario está autorizado para ejecutar ciertas rutas
 
-const jwt = require("express-jwt");
+const { expressjwt: jwt } = require("express-jwt");
 const secret = process.env.MY_SECRET;
 
 const getToken = (req) => {
@@ -17,7 +17,7 @@ const getToken = (req) => {
 const auth = jwt({
   secret,
   algorithms: ["HS256"],
-  userProperty: "user",
+  requestProperty: "user",
   getToken,
 });
 

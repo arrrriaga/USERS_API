@@ -23,12 +23,12 @@ const {
 } = require("../controllers");
 
 //! 4.- Declaración de las rutas
-router.post("/", nuevaPelicula);
-router.get("/getAll", verPeliculas);
-router.get("/filtrar", filtrarPeliculas);
-router.delete("/:id", eliminarPelicula);
-router.delete("/", eliminarPeliculasPorFiltro);
-router.put("/:id", actualizarPelicula);
+router.post("/", auth, nuevaPelicula);
+router.get("/getAll", auth, verPeliculas);
+router.get("/filtrar", auth, filtrarPeliculas);
+router.delete("/:id", auth, eliminarPelicula);
+router.delete("/", auth, eliminarPeliculasPorFiltro);
+router.put("/:id", auth, actualizarPelicula);
 
 //! 5.- Exportamos el enrutador
 module.exports = router;
