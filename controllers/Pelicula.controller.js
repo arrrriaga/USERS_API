@@ -4,6 +4,12 @@ const Pelicula = mongoose.model("Pelicula");
 
 const nuevaPelicula = async (req, res) => {
   try {
+    if (req.user.tipo !== "admin") {
+      res.status(403).json({
+        msj: "ERROR CRUD PELICULAS",
+        detalles: "sólo los admin pueden crear las peliculas",
+      });
+    }
     //POST: Creamos nuestro Pelicula con lo que viene del body
     const pelicula = new Pelicula(req.body);
     const resp = await pelicula.save();
@@ -25,6 +31,13 @@ const nuevaPelicula = async (req, res) => {
 
 const verPeliculas = async (req, res) => {
   try {
+    console.log(req.user);
+    if (req.user.tipo !== "admin") {
+      res.status(403).json({
+        msj: "ERROR CRUD PELICULAS",
+        detalles: "sólo los admin pueden ver las peliculas",
+      });
+    }
     // const Peliculas = await Pelicula.find().populate("director"); //Forma base, trae el User completo
     const Peliculas = await Pelicula.find().populate({
       path: "director",
@@ -57,6 +70,12 @@ const verPeliculas = async (req, res) => {
 
 const filtrarPeliculas = async (req, res) => {
   try {
+    if (req.user.tipo !== "admin") {
+      res.status(403).json({
+        msj: "ERROR CRUD PELICULAS",
+        detalles: "sólo los admin pueden ver las peliculas",
+      });
+    }
     const Peliculas = await Pelicula.find(req.body).populate({
       path: "director",
       select: {
@@ -81,6 +100,12 @@ const filtrarPeliculas = async (req, res) => {
 
 const eliminarPelicula = async (req, res) => {
   try {
+    if (req.user.tipo !== "admin") {
+      res.status(403).json({
+        msj: "ERROR CRUD PELICULAS",
+        detalles: "sólo los admin pueden eliminar las peliculas",
+      });
+    }
     const { id } = req.params;
     if (id.length !== 24) {
       return res.status(404).json({ msj: "ERROR", detalles: "ID no valido" });
@@ -104,6 +129,12 @@ const eliminarPelicula = async (req, res) => {
 
 const eliminarPeliculasPorFiltro = async (req, res) => {
   try {
+    if (req.user.tipo !== "admin") {
+      res.status(403).json({
+        msj: "ERROR CRUD PELICULAS",
+        detalles: "sólo los admin pueden eliminar las peliculas",
+      });
+    }
     const eliminados = await Pelicula.deleteMany(req.body);
     return res.status(200).json({
       msj: "Peliculas eliminado",
@@ -116,6 +147,12 @@ const eliminarPeliculasPorFiltro = async (req, res) => {
 
 const actualizarPelicula = async (req, res) => {
   try {
+    if (req.user.tipo !== "admin") {
+      res.status(403).json({
+        msj: "ERROR CRUD PELICULAS",
+        detalles: "sólo los admin pueden actualizar las peliculas",
+      });
+    }
     const { id } = req.params;
     const actualizado = await Pelicula.findByIdAndUpdate(id, req.body, {
       new: true,
