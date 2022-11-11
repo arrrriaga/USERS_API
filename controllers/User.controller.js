@@ -4,6 +4,14 @@ const User = mongoose.model("User");
 const registro = async (req, res) => {
   try {
     //POST: Creamos nuestro usuario con lo que viene del body
+    // console.log(req.user);
+    // if (req.user.tipo !== "admin") {
+    //   return res.status(403).json({
+    //     msj: "ERROR",
+    //     detalles: "Sólo un admin puede crear nuevos admins",
+    //   });
+    // }
+
     const { password } = req.body;
     delete req.body.password;
 
