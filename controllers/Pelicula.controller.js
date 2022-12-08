@@ -17,7 +17,7 @@ const nuevaPelicula = async (req, res) => {
     return res.status(201).json({
       msg: "Pelicula creada",
       data: await resp.populate({
-        path: "director",
+        path: "uploader",
         select: {
           nombre: true,
           tipo: true,
@@ -38,9 +38,9 @@ const verPeliculas = async (req, res) => {
         detalles: "sólo los admin pueden ver las peliculas",
       });
     }
-    // const Peliculas = await Pelicula.find().populate("director"); //Forma base, trae el User completo
+    // const Peliculas = await Pelicula.find().populate("uploader"); //Forma base, trae el User completo
     const Peliculas = await Pelicula.find().populate({
-      path: "director",
+      path: "uploader",
       select: {
         nombre: true,
         tipo: true,
@@ -77,7 +77,7 @@ const filtrarPeliculas = async (req, res) => {
       });
     }
     const Peliculas = await Pelicula.find(req.body).populate({
-      path: "director",
+      path: "uploader",
       select: {
         nombre: true,
       },
@@ -157,7 +157,7 @@ const actualizarPelicula = async (req, res) => {
     const actualizado = await Pelicula.findByIdAndUpdate(id, req.body, {
       new: true,
     }).populate({
-      path: "director",
+      path: "uploader",
       select: {
         nombre: true,
       },

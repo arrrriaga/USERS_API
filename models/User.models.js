@@ -13,6 +13,11 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 //! 2.- 2.- Crear el esquema
 const UserSchema = new mongoose.Schema({
+  img: {
+    type: String,
+    default:
+      "https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar.png",
+  },
   nombre: {
     type: String,
     required: true,
