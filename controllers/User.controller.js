@@ -50,43 +50,43 @@ const login = async (req, res) => {
   }
 };
 
-const verUsuarios = async (req, res) => {
+const verusuarioInfo = async (req, res) => {
   try {
     console.log(req.user);
     if (req.user.tipo !== "admin") {
       res.status(400).json({
-        msj: "ERROR VER USUARIOS",
+        msj: "ERROR VER usuarioInfo",
         detalles: "NO tienes permitida esta opción",
       });
     }
-    const usuarios = await User.find();
-    if (!usuarios.length) {
+    const usuarioInfo = await User.find();
+    if (!usuarioInfo.length) {
       return res
         .status(404)
         .json({ msg: "ERROR", detalles: "Colección vacía" });
     }
     return res
       .status(200)
-      .json({ msg: "Usuarios encontrados", data: usuarios });
+      .json({ msg: "usuarioInfo encontrados", data: usuarioInfo });
   } catch (e) {
     return res.status(400).json({
-      msg: "ERROR VERUSUARIOS",
+      msg: "ERROR VERusuarioInfo",
       detalles: e.message,
     });
   }
 };
 
-const filtrarUsuarios = async (req, res) => {
+const filtrarusuarioInfo = async (req, res) => {
   try {
-    const usuarios = await User.find(req.body);
-    if (!usuarios.length) {
+    const usuarioInfo = await User.find(req.body);
+    if (!usuarioInfo.length) {
       return res
         .status(404)
-        .json({ msg: "ERROR", detalles: "Usuarios no encontrados" });
+        .json({ msg: "ERROR", detalles: "usuarioInfo no encontrados" });
     }
     return res
       .status(200)
-      .json({ msg: "Usuarios encontrados", data: usuarios });
+      .json({ msg: "usuarioInfo encontrados", data: usuarioInfo });
   } catch (e) {
     return res.status(400).json({
       msg: "ERROR",
@@ -116,11 +116,11 @@ const eliminarUsuario = async (req, res) => {
   }
 };
 
-const eliminarUsuariosPorFiltro = async (req, res) => {
+const eliminarusuarioInfoPorFiltro = async (req, res) => {
   try {
     const eliminados = await User.deleteMany(req.body);
     return res.status(200).json({
-      msj: "Usuarios eliminado",
+      msj: "usuarioInfo eliminado",
       detalles: eliminados,
     });
   } catch (e) {
@@ -142,14 +142,35 @@ const actualizarUsuario = async (req, res) => {
   }
 };
 
+const verInfoUsuario = async (req, res) => {
+  try {
+    const usuarioInfo = await User.findById(req.User.idUser);
+    console.log(usuarioInfo);
+    if (!usuarioInfo) {
+      return res
+        .status(404)
+        .json({ msj: "ERROR", detalles: "Este usuario no existe" });
+    }
+    return res
+      .status(200)
+      .json({ msj: "Usuario encontrado", detalles: usuarioInfo });
+  } catch (e) {
+    return res.status(400).json({
+      msg: "ERROR verMiInfo",
+      detalles: e.message,
+    });
+  }
+};
+
 module.exports = {
   registro,
   login,
-  verUsuarios,
-  filtrarUsuarios,
+  verusuarioInfo,
+  filtrarusuarioInfo,
   eliminarUsuario,
-  eliminarUsuariosPorFiltro,
+  eliminarusuarioInfoPorFiltro,
   actualizarUsuario,
-  //verUsuarios,
+  verInfoUsuario,
+  //verusuarioInfo,
   //eliminarUsuario
 };
