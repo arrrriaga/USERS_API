@@ -158,7 +158,7 @@ const verInfoUsuario = async (req, res) => {
         .json({ mensaje: "Error", detalles: "Este usuario no existe." });
     return res
       .status(200)
-      .json({ mensaje: "Usuarios encontrados", detalles: usuarioInfo });
+      .json({ mensaje: "Usuario encontrado", detalles: usuarioInfo });
   } catch (e) {
     return res.status(400).json({ mensaje: "Error", detalles: e.message });
   }
