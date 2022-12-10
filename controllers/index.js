@@ -17,6 +17,8 @@ const {
   actualizarPelicula,
 } = require("./Pelicula.controller");
 
+const { nuevaVenta, verVentas } = require("./Venta.controller");
+
 module.exports = {
   registro,
   login,
@@ -32,4 +34,6 @@ module.exports = {
   eliminarPelicula,
   eliminarPeliculasPorFiltro,
   actualizarPelicula,
+  nuevaVenta,
+  verVentas,
 };
