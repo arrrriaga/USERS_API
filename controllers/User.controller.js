@@ -22,7 +22,7 @@ const registro = async (req, res) => {
 
     return res
       .status(201)
-      .json({ msg: "Usuario creado", detalles: user.generateJWT() });
+      .json({ msg: "Usuario creado", detalles: user.onSignGenerateJWT() });
   } catch (e) {
     return res.status(400).json({ msg: "ERROR REGISTRO", detalles: e.message });
   }
@@ -40,7 +40,7 @@ const login = async (req, res) => {
     if (user.verifyPassword(password)) {
       return res
         .status(200)
-        .json({ msj: "Login correcto", detalles: user.generateJWT() });
+        .json({ msj: "Login correcto", detalles: user.onSignGenerateJWT() });
     }
     return res
       .status(400)
