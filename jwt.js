@@ -1,29 +1,23 @@
 const jwt = require("jsonwebtoken");
-const secret = "mysecret";
+const secret = "micadenaultramegasecretaquenodebetenernadie";
 
-const generarToken = () => {
-  return jwt.sign(
-    {
-      userType: "admin",
-      userID: "5",
-    },
-    secret
-  );
+const generarToken = (payload) => {
+  return jwt.sign(payload, secret);
 };
 
 const verificarToken = (token) => {
   return jwt.verify(token, secret);
 };
 
-// console.log(
-//   generarToken({
-//     userType: "admin",
-//     userID: 5,
-//   })
-// );
+console.log(
+  generarToken({
+    userType: "admin",
+    userId: "5",
+  })
+);
 
 console.log(
   verificarToken(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVHlwZSI6ImFkbWluIiwidXNlcklEIjoiNSIsImlhdCI6MTY2Nzc2NjU1MH0.gHLIbxY5FYTd51OPeUGBcUvZfNAUflV-2-PFHfxgIXU"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVHlwZSI6ImFkbWluIiwidXNlcklkIjoiNSIsImlhdCI6MTY2NDYzNjQzOH0.fDQ2OR8J4aGYzRaSUA2L4M6DvmRnZdobWs_QNSm0P7w"
   )
 );

@@ -1,26 +1,28 @@
 /**
- * 1.- Importar e instanciar mongoose
+ * 1.- Importar mongoose
  * 2.- Crear el esquema
  * 3.- Exportar modelo
  */
 
-//! 1.- Importar mongoose
-require("dotenv").config();
+//! 1.- Importar mongoose & Crypto
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const uniqueValidator = require("mongoose-unique-validator");
 
-//! 2.- 2.- Crear el esquema
+//! 2.- Crear el esquema
 const UserSchema = new mongoose.Schema({
   img: {
     type: String,
     default:
-      "https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar.png",
+      "https://images.assetsdelivery.com/compings_v2/thesomeday123/thesomeday1231709/thesomeday123170900021.jpg",
   },
   nombre: {
     type: String,
     required: true,
+  },
+  apellido: {
+    type: String,
   },
   correo: {
     type: String,
@@ -30,16 +32,16 @@ const UserSchema = new mongoose.Schema({
   },
   planeta: {
     type: String,
-    default: "tierra",
+    default: "Tierra",
   },
   edad: {
     type: Number,
-    min: [18, "Necesitas 18 para poder beber"],
-    max: [100, "Superaste el rango de edad"],
+    min: [18, "Tienes que ser mayor de edad."],
+    max: [100, "Superaste el rango de edad."],
   },
   tipo: {
     type: String,
-    enum: ["cliente", "admin", "vendedor, limpieza"],
+    enum: ["cliente", "admin", "vendedor", "limpieza"],
     default: "cliente",
   },
   password: {
@@ -53,31 +55,26 @@ const UserSchema = new mongoose.Schema({
 UserSchema.plugin(uniqueValidator);
 
 //! Funciones del modelo
-//Generar pasword
 UserSchema.methods.encryptString = function (stringToEncrypt, salt) {
-  //No se puede crear como función flecha porque es una instancia y no permite usar "this"
   return crypto
-    .pbkdf2Sync(stringToEncrypt, salt, 10000, 256, "sha512")
+    .pbkdf2Sync(stringToEncrypt, salt, 10000, 512, "sha512")
     .toString("hex");
 };
 
 UserSchema.methods.hashPassword = function (password) {
-  //No se puede crear como función flecha porque es una instancia y no permite usar "this"
-  this.salt = crypto.randomBytes(16).toString("hex"); //salt debe ser de 16 bites
+  this.salt = crypto.randomBytes(16).toString("hex");
   this.password = this.encryptString(password, this.salt);
 };
 
-//Verificar Password
 UserSchema.methods.verifyPassword = function (password) {
   return this.password === this.encryptString(password, this.salt);
 };
 
-//Generar TOKEN
 UserSchema.methods.generateJWT = function () {
-  return jwt.sign({ idUser: this._id, tipo: this.tipo }, process.env.MY_SECRET);
+  return jwt.sign({ idUser: this._id, tipo: this.tipo }, process.env.SECRET);
 };
 
-UserSchema.methods.onSignGenerateJWT = function () {
+UserSchema.methods.onSingGenerateJWT = function () {
   return {
     idUser: this._id,
     tipo: this.tipo,
@@ -85,5 +82,5 @@ UserSchema.methods.onSignGenerateJWT = function () {
   };
 };
 
-//! Exprtar modelo
+//! 3.- Exportar modelo
 mongoose.model("User", UserSchema, "coleccionUser");

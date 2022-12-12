@@ -1,12 +1,12 @@
-/*
-1.- Importar Express
-2.- Instanciar enrutador
-3.- Importar controladores
-4.- Declaramos las rutas
-5.- Exportamos el enrutador
-*/
+/**
+ * 1.- Importar express
+ * 2.- Instanciar enrutador
+ * 3.- Importar controladores
+ * 4.- Declaramos las rutas
+ * 5.- Exportamos el enrutador
+ */
 
-//! 1.- Importamos express
+//! 1.- Importar express
 const express = require("express");
 const auth = require("../middleware/auth");
 
@@ -17,18 +17,16 @@ const router = express.Router();
 const {
   nuevaPelicula,
   verPeliculas,
-  filtrarPeliculas,
-  eliminarPelicula,
-  eliminarPeliculasPorFiltro,
+  eliminarPeliculaPorId,
   actualizarPelicula,
+  verMisPeliculas,
 } = require("../controllers");
 
-//! 4.- Declaración de las rutas
+//! 4.- Declaramos las rutas
 router.post("/", auth, nuevaPelicula);
 router.get("/getAll", auth, verPeliculas);
-router.get("/filtrar", auth, filtrarPeliculas);
-router.delete("/:id", auth, eliminarPelicula);
-router.delete("/", auth, eliminarPeliculasPorFiltro);
+router.get("/misPeliculas", auth, verMisPeliculas);
+router.delete("/:id", auth, eliminarPeliculaPorId);
 router.put("/:id", auth, actualizarPelicula);
 
 //! 5.- Exportamos el enrutador

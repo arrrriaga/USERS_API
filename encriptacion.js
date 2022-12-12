@@ -1,11 +1,14 @@
 const crypto = require("crypto");
-const salt = "asdfghjkl";
+const salt = "asdfhlaskfhsasdsd";
 
 const encriptar = (password) => {
-  return crypto
-    .pbkdf2Sync(password, salt, 10000, 512, "sha512")
-    .toString("hex"); //función síncrona
+  return crypto.pbkdf2Sync(password, salt, 10000, 10, "sha512").toString("hex");
 };
 
-console.log(encriptar("miPassword"));
-console.log("SALT", salt);
+const contraseña = "51bc555894468fcc60b0";
+
+console.log(
+  encriptar("miContraseñadfasdfasfdas") == contraseña
+    ? "Contraseña correcta"
+    : "Contraseña incorrecta"
+);

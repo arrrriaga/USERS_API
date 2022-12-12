@@ -1,5 +1,5 @@
-const User = require("./User.models");
-const Pelicula = require("./Pelicula.models");
+const User = require("./User.model");
+const Pelicula = require("./Pelicula.model");
 const Venta = require("./Venta.model");
 
 module.exports = {

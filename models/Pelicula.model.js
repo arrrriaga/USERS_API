@@ -1,5 +1,5 @@
 /**
- * 1.- Importar e instanciar mongoose
+ * 1.- Importar mongoose
  * 2.- Crear el esquema
  * 3.- Exportar modelo
  */
@@ -7,7 +7,7 @@
 //! 1.- Importar mongoose
 const mongoose = require("mongoose");
 
-//! 2.- 2.- Crear el esquema
+//! 2.- Crear el esquema
 const PeliculaSchema = new mongoose.Schema({
   nombre: {
     type: String,
@@ -32,5 +32,5 @@ const PeliculaSchema = new mongoose.Schema({
   },
 });
 
-//! Exprtar modelo
+//! 3.- Exportar modelo
 mongoose.model("Pelicula", PeliculaSchema, "coleccionPelicula");

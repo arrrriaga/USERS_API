@@ -6,11 +6,11 @@ const ventaRouter = require("./Venta.route");
 
 router.get("/", (req, res) => {
   res.send(`
-  <h1>Welcome to my API </h1>
-  `);
+    <h1>Welcome to API!</h1>
+    `);
 });
 
-router.use("/user", userRouter); //para las llamadas tendremos que colocar user primero. Example: /user/getall
+router.use("/user", userRouter);
 router.use("/pelicula", peliculaRouter);
 router.use("/venta", ventaRouter);
 

@@ -1,39 +1,40 @@
 const {
   registro,
-  login,
   verUsuarios,
   filtrarUsuarios,
-  eliminarUsuario,
+  eliminarUsuarioPorId,
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
+  login,
   verInfoUsuario,
+  verUsuario,
 } = require("./User.controller");
+
 const {
   nuevaPelicula,
   verPeliculas,
-  filtrarPeliculas,
-  eliminarPelicula,
-  eliminarPeliculasPorFiltro,
+  eliminarPeliculaPorId,
   actualizarPelicula,
+  verMisPeliculas,
 } = require("./Pelicula.controller");
 
 const { nuevaVenta, verVentas } = require("./Venta.controller");
 
 module.exports = {
   registro,
-  login,
   verUsuarios,
   filtrarUsuarios,
-  eliminarUsuario,
+  eliminarUsuarioPorId,
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
-  verInfoUsuario,
   nuevaPelicula,
   verPeliculas,
-  filtrarPeliculas,
-  eliminarPelicula,
-  eliminarPeliculasPorFiltro,
+  eliminarPeliculaPorId,
   actualizarPelicula,
+  login,
+  verInfoUsuario,
   nuevaVenta,
   verVentas,
+  verUsuario,
+  verMisPeliculas,
 };
