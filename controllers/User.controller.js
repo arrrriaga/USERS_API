@@ -36,17 +36,15 @@ const login = async (req, res) => {
     }
 
     if (user.verifyPassword(password)) {
-      return res
-        .status(200)
-        .json({
-          mensaje: "Login correcto",
-          detalles: user.onSingGenerateJWT(),
-        });
+      return res.status(200).json({
+        mensaje: "Login correcto",
+        detalles: user.onSingGenerateJWT(),
+      });
     }
 
     return res
       .status(400)
-      .json({ mensaje: "Error", detalles: "Verifica tus credenciales" });
+      .json({ mensaje: "Error", detalles: "Contraseña incorrecta" });
   } catch (e) {
     return res.status(400).json({ mensaje: "Error", detalles: e.message });
   }
